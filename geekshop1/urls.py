@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('products/', views.products, name='products'),
     path('contact/', views.contact, name='contact'),
+    path('basket/', include('basketapp.urls', namespace='basket')),
 ]
 

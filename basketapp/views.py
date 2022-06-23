@@ -1,9 +1,14 @@
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from basketapp.models import Basket
 
+from mainapp.models import Product
 
-
+@login_required
 def basket_list(requests):
     context = {
-        'baskets': Basket.objects.filter(user=request.user)
+        'baskets_items': Basket.objects.filter(user=request.user)
     }
 
     return render(request, 'basketapp/list', context)

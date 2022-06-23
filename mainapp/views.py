@@ -1,11 +1,16 @@
 from django.shortcuts import render
 
+from basketapp.models import Basket
 from mainapp.models import Product, Category
+
+
+
 
 
 def index(reauest):
     context = {
-        'products' : Product.objects.all()[:4]
+        'products' : Product.objects.all()[:4],
+        'basket': get_basket(request.user)
     }
     return render(request, 'mainapp/index.html', context)
 
@@ -26,16 +31,35 @@ def products_list(request, pk=None):
             context = {
                 'links_menu': links_menu,
                 'products': products_list,
-                'category': category_item
+                'category': category_item,
+                'basket': get_basket(request.user)
+
             }
 
             return render(request, 'mainapp/products_list.html', context)
 
+    hot_product = get_hot_product()
+    same_products = get_same_products(hot_product)
     context = {
-        'links_menu': links_menu
-    }
-    return render(request, 'mainapp/products.html', context)
+    'Links_menu': Links_menu,
+    'basket': get_basket(request.user),
+    'hot_product' : hot_product,
+    'same_products': same_products
+
+    return render(request, 'mainapp / products.html', context)
+
+    def product(request, pk):
+        product_item = get_object_or_404(Product, pk=pk)
+        context = {
+            'product': product_item
+        }
+    return render(request, *'mainapp / product.html', context)
+
+    def contact(request):
+  context = {
+  'basket': get_basket(request.user)}
+
+    return render(request, 'mainapp / contact.html', context)
 
 
-def contact(reaqest):
-    return render(request, 'mainapp/contact.html')
+

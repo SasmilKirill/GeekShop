@@ -17,5 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', include('adminapp.urls', namespace=adminapp)),
+
+    path('', views.index, name='index'),
+    path('products/', views.products, name='products'),
+    path('contact/', views.contact, name='contact'),
+    path('basket/', include('basketapp.urls', namespace='basket')),
 ]
+
